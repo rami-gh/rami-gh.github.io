@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ogdevs Application Form</title>
+    <link rel="shortcut icon" href="img/logo ogdev.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #2c2f33; 
+        }
+        .form-container {
+            background-color: #23272a; 
+        }
+        .form-label {
+            color: #b9bbbe;
+        }
+        .form-input, .form-textarea, .form-select {
+            background-color: #2c2f33;
+            border: 1px solid #99aab5;
+            color: #dcddde;
+        }
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            border-color: #7289da;
+        }
+        .submit-button {
+            background-color: #7289da;
+        }
+        .submit-button:hover {
+            background-color: #5b6eae;
+        }
+        .footer {
+            text-align: center;
+            color: #b9bbbe;
+            margin-top: 20px;
+        }
+        .footer a {
+            color: #7289da;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen flex-col">
+
+    <div class="w-full max-w-lg form-container rounded-lg shadow-lg p-8">
+        <h2 class="text-2xl font-semibold text-white text-center">Application Form</h2>
+        <p class="text-gray-400 text-center mb-6">Please complete all fields to submit your application.</p>
+
+        <form id="applicationForm" class="space-y-4">
+            <!-- Name -->
+            <div>
+                <label for="name" class="block text-sm font-medium form-label">Full Name</label>
+                <input type="text" id="name" name="name" required
+                    class="mt-1 block w-full form-input rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+            </div>
+
+            <!-- Email -->
+            <div>
+                <label for="email" class="block text-sm font-medium form-label">Email Address</label>
+                <input type="email" id="email" name="email" required
+                    class="mt-1 block w-full form-input rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+            </div>
+
+            <!-- Discord Username -->
+            <div>
+                <label for="discord" class="block text-sm font-medium form-label">Discord Username</label>
+                <input type="text" id="discord" name="discord" placeholder="e.g., username#1234" required
+                    class="mt-1 block w-full form-input rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+            </div>
+
+            <!-- Age -->
+            <div>
+                <label for="age" class="block text-sm font-medium form-label">Age</label>
+                <input type="number" id="age" name="age" min="16" required
+                    class="mt-1 block w-full form-input rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+            </div>
+
+            <!-- Position Applied For -->
+            <div>
+                <label for="position" class="block text-sm font-medium form-label">Position Applied For</label>
+                <select id="position" name="position" required
+                    class="mt-1 block w-full form-select rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                    <option value="">Select Position</option>
+                    <option value="Minecraft Developer">Minecraft Developer</option>
+                    <option value="Supporter">Supporter</option>
+                    <option value="In-Game Supporter">In-Game Supporter</option>
+                    <option value="Translator">Translator</option>
+                </select>
+            </div>
+
+            <!-- Professional Experience -->
+            <div>
+                <label for="experience" class="block text-sm font-medium form-label">Professional Experience</label>
+                <textarea id="experience" name="experience" rows="3" required
+                    class="mt-1 block w-full form-textarea rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Briefly describe your professional experience..."></textarea>
+            </div>
+
+            <!-- Skills and Expertise -->
+            <div>
+                <label for="skills" class="block text-sm font-medium form-label">Skills and Expertise</label>
+                <textarea id="skills" name="skills" rows="3" required
+                    class="mt-1 block w-full form-textarea rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="List your relevant skills or technical expertise..."></textarea>
+            </div>
+
+            <!-- Motivation -->
+            <div>
+                <label for="motivation" class="block text-sm font-medium form-label">Motivation</label>
+                <textarea id="motivation" name="motivation" rows="3" required
+                    class="mt-1 block w-full form-textarea rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Why are you interested in this position?"></textarea>
+            </div>
+
+            <!-- Availability -->
+            <div>
+                <label for="availability" class="block text-sm font-medium form-label">Availability</label>
+                <textarea id="availability" name="availability" rows="2" required
+                    class="mt-1 block w-full form-textarea rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="What days/hours are you generally available?"></textarea>
+            </div>
+
+            <div class="mt-6 flex justify-center">
+                <button type="submit" id="submitButton"
+                    class="submit-button text-white px-4 py-2 rounded-md shadow-sm hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 disabled:bg-blue-300 disabled:cursor-not-allowed">
+                    Submit Application
+                </button>
+            </div>
+        </form>
+
+        <p id="submitStatus" class="mt-4 text-center text-sm"></p>
+    </div>
+
+    <footer class="footer">
+        <p>© 2024 ogdevs | <a href="https://discord.gg/rKZknDxV">Join our Discord</a></p>
+    </footer>
+
+    <script>
+        const applicationForm = document.getElementById('applicationForm');
+        const submitButton = document.getElementById('submitButton');
+        const submitStatus = document.getElementById('submitStatus');
+
+        applicationForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            submitButton.disabled = true;
+            submitButton.textContent = 'Submitting...';
+            submitStatus.textContent = '';
+
+            const formData = {
+                name: applicationForm.name.value,
+                email: applicationForm.email.value,
+                discord: applicationForm.discord.value,
+                age: applicationForm.age.value,
+                position: applicationForm.position.value,
+                experience: applicationForm.experience.value,
+                skills: applicationForm.skills.value,
+                motivation: applicationForm.motivation.value,
+                availability: applicationForm.availability.value
+            };
+
+            const webhookUrl = 'https://discord.com/api/webhooks/1306654321814929458/HuUmvj-dbrp6Mtq5I8Vx9CVPxjsjeEw2eVLJB4I8zoOTkr5dp1U_mkrz1XwSKAUg1X5_'; 
+
+            try {
+                const response = await fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        content: 'New application received!',
+                        embeds: [{
+                            title: 'Application Details',
+                            fields: [
+                                { name: 'Full Name', value: formData.name },
+                                { name: 'Email', value: formData.email },
+                                { name: 'Discord Username', value: formData.discord },
+                                { name: 'Age', value: formData.age },
+                                { name: 'Position Applied For', value: formData.position },
+                                { name: 'Professional Experience', value: formData.experience },
+                                { name: 'Skills and Expertise', value: formData.skills },
+                                { name: 'Motivation', value: formData.motivation },
+                                { name: 'Availability', value: formData.availability }
+                            ]
+                        }]
+                    })
+                });
+
+                if (response.ok) {
+                    submitStatus.textContent = 'Application submitted successfully!';
+                    submitStatus.classList.add('text-green-500');
+                    applicationForm.reset();
+                } else {
+                    submitStatus.textContent = 'There was an error submitting your application. Please try again later.';
+                    submitStatus.classList.add('text-red-500');
+                }
+            } catch (error) {
+                submitStatus.textContent = 'An error occurred. Please try again later.';
+                submitStatus.classList.add('text-red-500');
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent = 'Submit Application';
+            }
+        });
+    </script>
+
+</body>
+</html>
